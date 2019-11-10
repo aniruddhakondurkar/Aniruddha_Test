@@ -1,0 +1,11 @@
+package helper;
+
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public interface Base {
+	
+	public static ChromeDriver dri;
+	public static WebDriverWait wait= new WebDriverWait(dri, 10);
+
+}

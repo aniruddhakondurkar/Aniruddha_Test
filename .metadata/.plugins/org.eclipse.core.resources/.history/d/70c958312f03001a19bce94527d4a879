@@ -1,0 +1,52 @@
+package helper;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public abstract class Login {
+
+	public ChromeDriver dri;
+	public WebDriverWait wait;
+	
+	public void login() throws Exception
+	{
+		try 
+		{
+			 wait= new WebDriverWait(dri, 10);
+					
+			System.setProperty("webdriver.chrome.dri", "D:\\Test\\libs\\chromedriver.exe");
+			dri=new ChromeDriver();
+			
+			dri.get("https://demo.bigtreecms.org/admin/login/");
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='user']")));
+			
+			dri.findElement(By.xpath("//input[@id='user']")).sendKeys("demo@bigtreecms.org");
+			dri.findElement(By.xpath("//input[@id='password']")).sendKeys("demo");
+			
+			dri.findElement(By.xpath("//input[@class='button blue']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class,'first last')]")));
+		}
+		
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public boolean isElementPresent(By by) 
+	{
+		try {
+			dri.findElement(by);
+			return true;
+		} 
+		catch (Exception e) 
+		{		   
+			return false;
+		}
+	}
+}

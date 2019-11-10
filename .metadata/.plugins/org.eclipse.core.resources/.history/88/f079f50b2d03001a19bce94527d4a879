@@ -1,0 +1,42 @@
+package Files;
+
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import helper.Login;
+
+public class AddFiles extends Login
+
+{
+		public void addfiles() throws Exception
+		{
+			login();
+			
+			dri.findElement(By.xpath("//span[@class='files']")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Add Images')]")));
+			
+			dri.findElement(By.xpath("//a[contains(text(),'Add Images')]")).click();
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@id='file_manager_dropzone']")));
+			
+			dri.findElement(By.xpath("//form[@id='file_manager_dropzone']")).click();
+			
+			uploadFileWithRobot(filePath);
+			
+			
+			
+		}
+	
+		public void uploadFileWithRobot(String imagepath)
+		{
+			 StringSelection stringSelection = new StringSelection(imagepath);
+		        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		        clipboard.setContents(stringSelection, null);
+		        
+		        
+		}
+	
+}

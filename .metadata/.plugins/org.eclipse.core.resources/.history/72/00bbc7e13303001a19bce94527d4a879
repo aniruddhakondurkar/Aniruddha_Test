@@ -1,0 +1,30 @@
+package Files;
+
+import helper.Login;
+
+public class DeleteFile extends Login
+{
+//Filename to be deleted
+String filename="download-3.jpeg";
+
+
+	public static void main (String args[]) throws Exception
+	{
+		deletefile();
+	}
+	
+	public static void deletefile()
+	{
+		try
+		{
+			
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+
+}

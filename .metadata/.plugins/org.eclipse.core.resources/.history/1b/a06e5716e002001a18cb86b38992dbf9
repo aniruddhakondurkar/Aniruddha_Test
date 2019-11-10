@@ -1,0 +1,22 @@
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class Login {
+
+	public WebDriver driver;
+	
+	public void wait()
+	{
+		WebDriverWait wait= new WebDriverWait(driver, 10);
+	}
+	
+	public void login() 
+	{
+		System.setProperty("webdriver.chrome.driver", "D:\\Test\\libs\\chromedriver.exe");
+		driver= new ChromeDriver();
+		
+		driver.get("https://demo.bigtreecms.org/admin/login/");
+		
+	}
+}

@@ -1,0 +1,99 @@
+package Files;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import helper.Login;
+
+public class AddFiles extends Login
+{
+	static String imagefile= "C:\\Users\\Aniruddha\\Downloads\\download.jpeg"; 
+
+
+	public static void main (String args[]) throws Exception
+	{
+		addfiles();
+	}
+	
+	
+		public static void addfiles() throws Exception
+		{
+			try
+			{
+				login();
+				
+				dri.findElement(By.xpath("//span[@class='files']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(text(),'Add Images')]")));
+				
+				dri.findElement(By.xpath("//a[contains(text(),'Add Images')]")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@id='file_manager_dropzone']")));
+				
+				dri.findElement(By.xpath("//form[@id='file_manager_dropzone']")).click();
+				
+				uploadFileWithRobot(imagefile);
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value='Continue']")));
+				
+				dri.findElement(By.xpath("//input[@value='Continue']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value='Update File']")));
+				
+				//To get the filename
+				WebElement filename= dri.findElement(By.xpath("//input[@id='field_file_name']"));
+				String file= filename.getText();
+				
+				dri.findElement(By.xpath("//input[@value='Update File']")).click();
+				wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='js-file-manager-search']")));
+				
+				if(isElementPresent(By.xpath("//a[contains(text(),'"+file+"')]")))
+				{
+					System.out.println("File updated successfully");
+				}
+				
+				else
+				{
+					System.out.println("File is not uploaded");
+				}
+				
+			}
+			
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+	
+		public static void uploadFileWithRobot(String imagepath) throws AWTException
+		{
+			try 
+			{
+			 StringSelection stringSelection = new StringSelection(imagepath);
+		        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		        clipboard.setContents(stringSelection, null);
+		        
+		        Robot robot= new Robot();
+		        
+		        robot.keyPress(KeyEvent.VK_ENTER);
+		        robot.keyRelease(KeyEvent.VK_ENTER);
+		        robot.keyPress(KeyEvent.VK_CONTROL);
+		        robot.keyPress(KeyEvent.VK_V);
+		        robot.keyRelease(KeyEvent.VK_V);
+		        robot.keyRelease(KeyEvent.VK_CONTROL);
+		        robot.keyPress(KeyEvent.VK_ENTER);
+		        robot.keyRelease(KeyEvent.VK_ENTER);
+		        
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		        
+		}
+	
+}
